@@ -1,0 +1,81 @@
+spring:
+  application:
+    name: code-review-bot
+
+  # ── Database ──────────────────────────────────────────────
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/codereviewbot}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      connection-timeout: 20000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: false
+
+  # ── Schema initialization ────────────────────────────────
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+
+  # ── Jackson ──────────────────────────────────────────────
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+
+# ── GitHub App ───────────────────────────────────────────────
+github:
+  app-id: ${GITHUB_APP_ID:0}
+  private-key-path: ${GITHUB_PRIVATE_KEY_PATH:}
+  webhook-secret: ${GITHUB_WEBHOOK_SECRET:}
+
+# ── Google Gemini AI ─────────────────────────────────────────
+gemini:
+  api-key: ${GEMINI_API_KEY:}
+  model: gemini-2.5-flash
+  max-files-per-review: 20
+  max-lines-per-file: 500
+
+# ── JWT ──────────────────────────────────────────────────────
+jwt:
+  secret: ${JWT_SECRET:changeme-replace-with-256bit-secret-in-production}
+  expiration-ms: 86400000  # 24 hours
+
+# ── App Config ───────────────────────────────────────────────
+app:
+  free-plan-review-limit: 50
+
+# ── Logging ──────────────────────────────────────────────────
+logging:
+  level:
+    com.codereviewbot: DEBUG
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
+
+# ── Server ───────────────────────────────────────────────────
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# ── Springdoc / Swagger ──────────────────────────────────────
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method

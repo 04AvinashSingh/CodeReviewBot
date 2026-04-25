@@ -1,0 +1,11 @@
+target/
+.mvn/
+*.class
+*.jar
+*.log
+.env
+github-private-key.pem
+.idea/
+*.iml
+.DS_Store
+node_modules/

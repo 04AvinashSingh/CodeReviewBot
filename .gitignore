@@ -1,0 +1,7 @@
+target/
+.env
+github-private-key.pem
+*.pem
+.idea/
+*.iml
+.DS_Store
