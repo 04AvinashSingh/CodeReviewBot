@@ -12,7 +12,8 @@ const Repos = () => {
 
   const fetchRepos = async () => {
     try {
-      const res = await fetch('/api/repos', {
+      const API_URL = import.meta.env.VITE_API_URL || '';
+      const res = await fetch(`${API_URL}/api/repos`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (!res.ok) throw new Error('Failed to fetch repositories');
@@ -44,7 +45,8 @@ const Repos = () => {
     
     setAdding(true);
     try {
-      const res = await fetch('/api/repos/register', {
+      const API_URL = import.meta.env.VITE_API_URL || '';
+      const res = await fetch(`${API_URL}/api/repos/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

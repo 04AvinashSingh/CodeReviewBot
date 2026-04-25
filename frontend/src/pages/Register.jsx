@@ -19,7 +19,8 @@ const Register = () => {
     setError('');
 
     try {
-      const res = await fetch('/api/auth/register', {
+      const API_URL = import.meta.env.VITE_API_URL || '';
+      const res = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, companyName }),

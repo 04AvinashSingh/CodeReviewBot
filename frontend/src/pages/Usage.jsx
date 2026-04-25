@@ -11,7 +11,8 @@ const Usage = () => {
   useEffect(() => {
     const fetchUsage = async () => {
       try {
-        const res = await fetch('/api/usage', {
+        const API_URL = import.meta.env.VITE_API_URL || '';
+        const res = await fetch(`${API_URL}/api/usage`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (!res.ok) throw new Error('Failed to fetch usage statistics');
