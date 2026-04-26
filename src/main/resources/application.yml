@@ -4,9 +4,9 @@ spring:
 
   # ── Database ──────────────────────────────────────────────
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/codereviewbot}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:postgres}
+    url: jdbc:postgresql://${PGHOST:localhost}:${PGPORT:5432}/${PGDATABASE:codereviewbot}
+    username: ${PGUSER:postgres}
+    password: ${PGPASSWORD:postgres}
     hikari:
       maximum-pool-size: 10
       minimum-idle: 2
